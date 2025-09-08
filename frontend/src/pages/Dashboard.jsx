@@ -44,30 +44,32 @@ export default function Dashboard() {
   };
 
   return (
-    <div style={{ padding: 16 }}>
-      <h2>My Bank Accounts</h2>
-      <form onSubmit={submit} style={{ display: 'grid', gap: 8, maxWidth: 640, gridTemplateColumns: 'repeat(2, 1fr)' }}>
-        <input placeholder="IFSC Code" value={form.ifscCode} onChange={(e) => setForm({ ...form, ifscCode: e.target.value })} />
-        <input placeholder="Branch Name" value={form.branchName} onChange={(e) => setForm({ ...form, branchName: e.target.value })} />
-        <input placeholder="Bank Name" value={form.bankName} onChange={(e) => setForm({ ...form, bankName: e.target.value })} />
-        <input placeholder="Account Number" value={form.accountNumber} onChange={(e) => setForm({ ...form, accountNumber: e.target.value })} />
-        <input placeholder="Account Holder Name" value={form.accountHolderName} onChange={(e) => setForm({ ...form, accountHolderName: e.target.value })} />
-        <div style={{ gridColumn: '1 / -1' }}>
-          {error && <div style={{ color: 'red', marginBottom: 8 }}>{error}</div>}
-          <button type="submit">{editingId ? 'Update' : 'Add'} Account</button>
-          {editingId && <button type="button" onClick={() => { setEditingId(null); setForm(empty); }} style={{ marginLeft: 8 }}>Cancel</button>}
-        </div>
-      </form>
+    <div className="container">
+      <div className="card" style={{ marginBottom: 16 }}>
+        <div className="card-header">My Bank Accounts</div>
+        <form onSubmit={submit} className="form-grid" style={{ maxWidth: 920 }}>
+          <input placeholder="IFSC Code" value={form.ifscCode} onChange={(e) => setForm({ ...form, ifscCode: e.target.value })} />
+          <input placeholder="Branch Name" value={form.branchName} onChange={(e) => setForm({ ...form, branchName: e.target.value })} />
+          <input placeholder="Bank Name" value={form.bankName} onChange={(e) => setForm({ ...form, bankName: e.target.value })} />
+          <input placeholder="Account Number" value={form.accountNumber} onChange={(e) => setForm({ ...form, accountNumber: e.target.value })} />
+          <input placeholder="Account Holder Name" value={form.accountHolderName} onChange={(e) => setForm({ ...form, accountHolderName: e.target.value })} />
+          <div className="form-actions">
+            {error && <div className="error" style={{ marginRight: 8 }}>{error}</div>}
+            <button type="submit" className="btn btn-primary">{editingId ? 'Update' : 'Add'} Account</button>
+            {editingId && <button type="button" onClick={() => { setEditingId(null); setForm(empty); }} className="btn btn-secondary">Cancel</button>}
+          </div>
+        </form>
+      </div>
 
-      <div style={{ marginTop: 24 }}>
+      <div className="list">
         {items.map((item) => (
-          <div key={item._id} style={{ border: '1px solid #ddd', padding: 12, marginBottom: 8, display: 'grid', gap: 4 }}>
-            <div><strong>{item.bankName}</strong> - {item.branchName}</div>
-            <div>IFSC: {item.ifscCode}</div>
-            <div>Account: {item.accountNumber} | Holder: {item.accountHolderName}</div>
-            <div>
-              <button onClick={() => edit(item)}>Edit</button>
-              <button onClick={() => remove(item._id)} style={{ marginLeft: 8 }}>Delete</button>
+          <div key={item._id} className="card">
+            <div className="card-header">{item.bankName} <span className="muted">- {item.branchName}</span></div>
+            <div className="muted">IFSC: {item.ifscCode}</div>
+            <div className="muted">Account: {item.accountNumber} | Holder: {item.accountHolderName}</div>
+            <div className="item-actions" style={{ marginTop: 8 }}>
+              <button onClick={() => edit(item)} className="btn btn-secondary">Edit</button>
+              <button onClick={() => remove(item._id)} className="btn btn-danger">Delete</button>
             </div>
           </div>
         ))}

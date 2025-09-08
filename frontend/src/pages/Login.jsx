@@ -21,14 +21,18 @@ export default function Login() {
   };
 
   return (
-    <div style={{ padding: 16, maxWidth: 420 }}>
-      <h2>Login</h2>
-      <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-        <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
-        {error && <div style={{ color: 'red' }}>{error}</div>}
-        <button type="submit">Login</button>
-      </form>
+    <div className="container" style={{ maxWidth: 520 }}>
+      <div className="card">
+        <div className="card-header">Login</div>
+        <form onSubmit={onSubmit} className="grid">
+          <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+          <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
+          {error && <div className="error">{error}</div>}
+          <div>
+            <button type="submit" className="btn btn-primary">Login</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

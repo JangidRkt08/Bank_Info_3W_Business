@@ -14,24 +14,26 @@ export default function AdminPanel() {
   useEffect(() => { load(); }, []);
 
   return (
-    <div style={{ padding: 16 }}>
-      <h2>Admin: All Bank Accounts</h2>
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 8, marginBottom: 12 }}>
-        <input placeholder="Search all" value={filters.q} onChange={(e) => setFilters({ ...filters, q: e.target.value })} />
-        <input placeholder="Bank name" value={filters.bankName} onChange={(e) => setFilters({ ...filters, bankName: e.target.value })} />
-        <input placeholder="IFSC" value={filters.ifsc} onChange={(e) => setFilters({ ...filters, ifsc: e.target.value })} />
-        <input placeholder="Username" value={filters.username} onChange={(e) => setFilters({ ...filters, username: e.target.value })} />
-        <input placeholder="Email" value={filters.email} onChange={(e) => setFilters({ ...filters, email: e.target.value })} />
+    <div className="container">
+      <div className="card" style={{ marginBottom: 16 }}>
+        <div className="card-header">Admin: All Bank Accounts</div>
+        <div className="grid cols-3" style={{ marginBottom: 12 }}>
+          <input placeholder="Search all" value={filters.q} onChange={(e) => setFilters({ ...filters, q: e.target.value })} />
+          <input placeholder="Bank name" value={filters.bankName} onChange={(e) => setFilters({ ...filters, bankName: e.target.value })} />
+          <input placeholder="IFSC" value={filters.ifsc} onChange={(e) => setFilters({ ...filters, ifsc: e.target.value })} />
+          <input placeholder="Username" value={filters.username} onChange={(e) => setFilters({ ...filters, username: e.target.value })} />
+          <input placeholder="Email" value={filters.email} onChange={(e) => setFilters({ ...filters, email: e.target.value })} />
+          <button onClick={load} className="btn btn-primary">Apply Filters</button>
+        </div>
       </div>
-      <button onClick={load}>Apply Filters</button>
 
-      <div style={{ marginTop: 16 }}>
+      <div className="list">
         {items.map((item) => (
-          <div key={item._id} style={{ border: '1px solid #ddd', padding: 12, marginBottom: 8 }}>
-            <div style={{ fontWeight: 'bold' }}>{item.bankName} - {item.branchName}</div>
-            <div>IFSC: {item.ifscCode} | Account: {item.accountNumber}</div>
-            <div>Holder: {item.accountHolderName}</div>
-            <div>User: {item.user?.username} ({item.user?.email}) [{item.user?.role}]</div>
+          <div key={item._id} className="card">
+            <div className="card-header">{item.bankName} <span className="muted">- {item.branchName}</span></div>
+            <div className="muted">IFSC: {item.ifscCode} | Account: {item.accountNumber}</div>
+            <div className="muted">Holder: {item.accountHolderName}</div>
+            <div className="muted">User: {item.user?.username} ({item.user?.email}) [{item.user?.role}]</div>
           </div>
         ))}
       </div>

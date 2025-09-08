@@ -22,15 +22,19 @@ export default function Register() {
   };
 
   return (
-    <div style={{ padding: 16, maxWidth: 420 }}>
-      <h2>Register</h2>
-      <form onSubmit={onSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
-        <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
-        <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
-        <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
-        {error && <div style={{ color: 'red' }}>{error}</div>}
-        <button type="submit">Create account</button>
-      </form>
+    <div className="container" style={{ maxWidth: 520 }}>
+      <div className="card">
+        <div className="card-header">Create an account</div>
+        <form onSubmit={onSubmit} className="grid">
+          <input value={username} onChange={(e) => setUsername(e.target.value)} placeholder="Username" />
+          <input value={email} onChange={(e) => setEmail(e.target.value)} placeholder="Email" />
+          <input value={password} onChange={(e) => setPassword(e.target.value)} placeholder="Password" type="password" />
+          {error && <div className="error">{error}</div>}
+          <div>
+            <button type="submit" className="btn btn-primary">Create account</button>
+          </div>
+        </form>
+      </div>
     </div>
   );
 }

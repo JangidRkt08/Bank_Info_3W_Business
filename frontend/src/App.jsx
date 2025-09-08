@@ -18,14 +18,15 @@ const AdminRoute = ({ children }) => {
 const Nav = () => {
   const { token, user, logout } = useAuth();
   return (
-    <nav style={{ display: 'flex', gap: 12, padding: 12, borderBottom: '1px solid #ddd' }}>
+    <nav className="nav">
       <Link to="/">Home</Link>
       {!token && <Link to="/login">Login</Link>}
       {!token && <Link to="/register">Register</Link>}
       {token && <Link to="/dashboard">Dashboard</Link>}
       {token && user?.role === 'admin' && <Link to="/admin">Admin</Link>}
+      <div className="spacer" />
       {token && (
-        <button onClick={logout} style={{ marginLeft: 'auto' }}>Logout</button>
+        <button onClick={logout} className="btn btn-secondary">Logout</button>
       )}
     </nav>
   );
@@ -36,7 +37,7 @@ export default function App() {
     <AuthProvider>
       <Nav />
       <Routes>
-        <Route path="/" element={<div style={{ padding: 16 }}>Welcome to Bank Info Management</div>} />
+        <Route path="/" element={<div className="container"><div className="card"><div className="card-header">Welcome</div><div className="muted">Bank Info Management</div></div></div>} />
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
         <Route path="/dashboard" element={<PrivateRoute><Dashboard /></PrivateRoute>} />
