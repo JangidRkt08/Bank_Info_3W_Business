@@ -1,0 +1,36 @@
+# Dependencies
+node_modules/
+backend/node_modules/
+frontend/node_modules/
+
+# Environment files
+.env
+*.env
+backend/.env
+frontend/.env
+.env.local
+
+# Build outputs
+backend/dist/
+frontend/dist/
+build/
+coverage/
+
+# Logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# OS / Editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# Platform configs
+.vercel/
+.netlify/
+
+# Misc cache
+*.cache
+.cache/
