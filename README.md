@@ -1,70 +1,127 @@
-Bank Information Management System
+## Bank Information Management System
 
-Stack: Node.js, Express, MongoDB (Atlas), React (Vite), JWT, bcrypt
+A full-stack app for managing bank accounts with role-based access (user/admin).
 
-Features
-- User auth: register/login with hashed passwords
-- User bank accounts: add, list, edit, delete (multiple supported)
-- Admin: view all accounts with filters
+### Tech Stack
+- **Backend**: Node.js, Express, MongoDB (Atlas)
+- **Frontend**: React (Vite)
+- **Auth/Security**: JWT, bcrypt
 
-Project Structure
-- backend: Express API
-- frontend: React app
+### Features
+- **User auth**: Register and login with securely hashed passwords
+- **Bank accounts**: Add, list, edit, and delete multiple accounts
+- **Admin**: View all accounts with query filters
 
-Local Setup
-1) Prereqs: Node 18+, npm, MongoDB Atlas URI
+### Project Structure
+- `backend`: Express API
+- `frontend`: React app (Vite)
 
-2) Backend
-   - Create `backend/.env`:
-     PORT=4000
-     MONGODB_URI=your_mongodb_atlas_uri
-     JWT_SECRET=some_long_secret
-     ADMIN_EMAIL=admin@example.com
-   - Install and run:
-     cd backend
-     npm install
-     npm run dev
+---
 
-3) Frontend
-   - Create `frontend/.env`:
-     VITE_API_URL=http://localhost:4000/api
-   - Install and run:
-     cd frontend
-     npm install
-     npm run dev
+## Getting Started
 
-Open http://localhost:5173
+### Prerequisites
+- Node.js 18+
+- npm
+- MongoDB Atlas connection URI
 
-Admin User
-- The first user who registers with email matching ADMIN_EMAIL becomes admin.
+### Backend Setup
+1. Create `backend/.env`:
 
-API Overview
-- POST /api/auth/register { username, email, password }
-- POST /api/auth/login { email, password }
-- GET /api/accounts (auth)
-- POST /api/accounts (auth)
-- PUT /api/accounts/:id (auth)
-- DELETE /api/accounts/:id (auth)
-- GET /api/admin/accounts?q=&bankName=&ifsc=&username=&email= (admin)
+```
+PORT=4000
+MONGODB_URI=your_mongodb_atlas_uri
+JWT_SECRET=some_long_secret
+ADMIN_EMAIL=admin@example.com
+```
 
-Deploy
-Vercel (Backend)
-- Project root: backend
+2. Install and run the backend:
+
+```
+cd backend
+npm install
+npm run dev
+```
+
+### Frontend Setup
+1. Create `frontend/.env`:
+
+```
+VITE_API_URL=http://localhost:4000/api
+```
+
+2. Install and run the frontend:
+
+```
+cd frontend
+npm install
+npm run dev
+```
+
+Open `http://localhost:5173` in your browser.
+
+---
+
+## Admin User
+
+- The first user who registers with an email matching `ADMIN_EMAIL` becomes an admin.
+
+---
+
+## Testing
+
+Use the following test user credentials to log in (or register first, then log in):
+
+```json
+{ "username": "testuser", "email": "testuser@example.com", "password": "test123" }
+```
+
+Note: 1.This test user is a regular user (not an admin).
+      2. You can use this information directly into dashboaurd login(Frontend)
+
+---
+
+## API Overview
+
+Auth
+- `POST /api/auth/register` — body: `{ username, email, password }`
+- `POST /api/auth/login` — body: `{ email, password }`
+
+Accounts (requires auth)
+- `GET /api/accounts`
+- `POST /api/accounts`
+- `PUT /api/accounts/:id`
+- `DELETE /api/accounts/:id`
+
+Admin (requires admin role)
+- `GET /api/admin/accounts?q=&bankName=&ifsc=&username=&email=`
+
+---
+
+## Deployment
+
+### Vercel (Backend)
+- Project root: `backend`
 - Build command: (none)
-- Output dir: (none)
-- Env: PORT=4000, MONGODB_URI, JWT_SECRET, ADMIN_EMAIL
-- Set CORS in code to allow your Netlify domain.
+- Output directory: (none)
+- Environment variables: `PORT=4000`, `MONGODB_URI`, `JWT_SECRET`, `ADMIN_EMAIL`
+- Ensure CORS allows your Netlify domain
 
-Netlify (Frontend)
-- Base dir: frontend
-- Build command: npm run build
-- Publish directory: dist
-- Environment: VITE_API_URL=https://<your-vercel-app>.vercel.app/api
+### Netlify (Frontend)
+- Base directory: `frontend`
+- Build command: `npm run build`
+- Publish directory: `dist`
+- Environment variables:
 
-Beginner-Friendly Talking Points
-- Passwords never stored in plain text (bcrypt hashing).
-- Stateless auth using JWT sent in Authorization header.
-- Ownership enforced on account routes; admin checks via role.
-- Validation with Joi on all inputs.
+```
+VITE_API_URL=https://<your-vercel-app>.vercel.app/api
+```
 
+---
+
+## Notes
+- Passwords are never stored in plain text (bcrypt hashing)
+- Stateless auth using JWT via the `Authorization` header
+- Ownership enforced on account routes; admin checks via role
+- Request validation using Joi on all inputs
 
